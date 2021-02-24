@@ -1,6 +1,9 @@
 import express from 'express'
 import cors from 'cors'
-import { heroRoutes } from './routes/heroRoutes'
+import { routes } from './routes/routes'
+
+
+
 class Server {
     private app: express.Application
     constructor(){
@@ -8,8 +11,9 @@ class Server {
         this.config()
         this.routes()
     }
-    config(){
-        this.app.set('port', process.env.PORT || 3000)
+    private async config(){
+
+        this.app.set('port', process.env.PORT || 4000)
         this.app.use(express.json()) // para que nuestro servidor entienda
         this.app.use(cors()) // evitar el error CORS
 
@@ -24,7 +28,7 @@ class Server {
     }
 
     private routes(){
-        this.app.use('/api', heroRoutes)
+        this.app.use('/restapi', routes)
     }
 
     start(){
@@ -34,5 +38,6 @@ class Server {
         })
     }
 }
+
 const server = new Server()
 server.start()
